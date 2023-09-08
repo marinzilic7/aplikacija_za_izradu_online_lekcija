@@ -30,6 +30,7 @@ Route::post('/dodajLekciju',[LessonController::class,'dodajLekciju']);
 Route::get('/getLesson',[LessonController::class,'getLesson']);
 Route::post('/deleteLesson/{id}',[LessonController::class,'deleteLesson']);
 Route::post('/urediLekciju/{id}',[LessonController::class,'urediLekciju']);
+Route::get('/singleLesson/{id}',[LessonController::class,'getLekcija']);
 
 /*  */
 

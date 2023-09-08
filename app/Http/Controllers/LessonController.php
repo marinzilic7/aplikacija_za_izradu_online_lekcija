@@ -69,4 +69,10 @@ class LessonController extends Controller
             'lesson' => $lesson,
         ]);
     }
+
+    public function getLekcija($id){
+        $lekcija = Lesson::with('user', 'category')->find($id);
+
+        return response()->json($lekcija);
+    }
 }
