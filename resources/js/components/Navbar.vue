@@ -27,7 +27,20 @@ import { RouterLink, RouterView } from "vue-router";
                             >Početna</RouterLink
                         >
                     </li>
-                    <li class="nav-item"></li>
+                    <li class="nav-item">
+                        <RouterLink
+                            class="text-light text-decoration-none nav-link"
+                            to="/lekcija"
+                            >Lekcija</RouterLink
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <RouterLink
+                            class="text-light text-decoration-none nav-link"
+                            to="/kategorija"
+                            >Kategorija</RouterLink
+                        >
+                    </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <div v-if="!isLoggedIn" class="dropdown dropstart">
