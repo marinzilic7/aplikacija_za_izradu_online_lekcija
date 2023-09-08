@@ -10,5 +10,10 @@ class Category extends Model
     protected $fillable = [
         'ime'
     ];
+
+    public function lessons()
+    {
+        return $this->hasMany(Lesson::class);
+    }
     use HasFactory;
 }

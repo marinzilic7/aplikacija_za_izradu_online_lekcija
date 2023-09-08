@@ -14,7 +14,10 @@ class User extends Model implements Authenticatable
         'ime', 'prezime', 'email', 'password'
     ];
 
-
+    public function lessons()
+    {
+        return $this->hasMany(Lesson::class);
+    }
 
     use HasFactory;
 }

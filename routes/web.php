@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LessonController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,15 @@ Route::post('/logout',[UserController::class,'logout']);
 
 Route::post('/addCategory',[CategoryController::class,'addCategory']);
 Route::get('/getCategories',[CategoryController::class,'getCategories']);
+
+/* Lekcija */
+
+Route::post('/dodajLekciju',[LessonController::class,'dodajLekciju']);
+Route::get('/getLesson',[LessonController::class,'getLesson']);
+Route::post('/deleteLesson/{id}',[LessonController::class,'deleteLesson']);
+Route::post('/urediLekciju/{id}',[LessonController::class,'urediLekciju']);
+
+/*  */
 
 Route::get('/{any}', function () {
     return view('welcome');
