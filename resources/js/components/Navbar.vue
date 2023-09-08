@@ -24,7 +24,7 @@ import { RouterLink, RouterView } from "vue-router";
                         <RouterLink
                             class="text-light text-decoration-none nav-link"
                             to="/"
-                            >Home</RouterLink
+                            >Početna</RouterLink
                         >
                     </li>
                     <li class="nav-item"></li>
