@@ -15,7 +15,7 @@
                             aria-expanded="false"
                             aria-controls="flush-collapseOne"
                         >
-                           <span class="text-primary fw-bold">Lekcija</span> :  {{lekcija.naslov}}
+                           <span class="text-primary fw-bold">Lekcija</span> : {{lekcija.naslov}}
                         </button>
                     </h2>
                     <div
