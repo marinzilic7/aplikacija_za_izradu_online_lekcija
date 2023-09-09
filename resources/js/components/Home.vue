@@ -65,19 +65,24 @@
                             <hr />
 
                             <div>
-                                <h3>Tema : {{ lekcija.detail[index].tema }}</h3>
+                                <h3>
+                                    Tema : {{ lekcija.detail[indexx].tema }}
+                                </h3>
                             </div>
                             <div class="mt-3">
                                 <h4>Sadrzaj :</h4>
-                                <p>{{ lekcija.detail[index].lekcija }}</p>
+                                <p>{{ lekcija.detail[indexx].lekcija }}</p>
                             </div>
                             <div class="d-flex justify-content-between">
-                                <button class="btn btn-danger btn-sm">
+                                <button
+                                    class="btn btn-danger btn-sm"
+                                    @click="prevLesson(indexx)"
+                                >
                                     Vrati
                                 </button>
                                 <button
                                     class="btn btn-sm btn-success"
-                                    @click="nextLesson()"
+                                    @click="nextLesson(indexx)"
                                 >
                                     Sljedece
                                 </button>
@@ -100,7 +105,7 @@ export default {
         return {
             lekcije: [],
             loading: true,
-            index: 0,
+            indexx: 0,
             tema: [],
         };
     },
@@ -145,12 +150,22 @@ export default {
                 });
         },
 
-        nextLesson() {
+        nextLesson(indexx) {
+            this.lekcije.forEach((element, index) => {
 
-            console.log("duzina",this.lekcije.detail.length)
-            if (this.index < this.lekcije.detail.length - 1) {
-                this.index++;
-            }
+                if (this.indexx < element.detail.length-1)  {
+                    this.indexx++;
+                }
+            });
+        },
+
+        prevLesson(indexx) {
+            this.lekcije.forEach((element, index) => {
+
+                if (this.indexx > 0) {
+                    this.indexx--;
+                }
+            });
         },
     },
 };
