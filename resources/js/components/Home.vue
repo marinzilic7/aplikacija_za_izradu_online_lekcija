@@ -77,7 +77,7 @@
                                 <h4>Sadrzaj :</h4>
                                 <p>{{ lekcija.detail[indexx].lekcija }}</p>
                             </div>
-                            <div class="mt-3">
+                            <div class="mt-3 d-flex justiy-content-center">
                                 <video
                                     class="card-img-top custom-video"
                                     controls
@@ -91,10 +91,21 @@
                                     />
                                     Your browser does not support the video tag.
                                 </video>
-                                <div  v-if="lekcija.detail[indexx].image">
-
-                                    <img :src="getImageUrl(lekcija.detail[indexx].image)" alt="" />
-                                </div>
+                            </div>
+                            <div
+                                class="d-flex justify-content-center"
+                                v-if="lekcija.detail[indexx].image"
+                            >
+                                <img
+                                    :src="
+                                        getImageUrl(
+                                            lekcija.detail[indexx].image
+                                        )
+                                    "
+                                    alt=""
+                                    class="img-fluid m-auto"
+                                    style="max-width: 300px; height: auto"
+                                />
                             </div>
                             <div class="d-flex justify-content-between">
                                 <button
@@ -210,9 +221,9 @@ export default {
 }
 
 .custom-video {
-  margin:auto !important;
-  width: 100%; /* Postavite širinu videa na 100% roditeljskog elementa */
-  max-width: 800px; /* Ograničite maksimalnu širinu videa, prilagodite je vašim potrebama */
-  height: auto; /* Automatski prilagodite visinu kako biste očuvali proporcije */
+    margin: auto !important;
+    width: 100%; /* Postavite širinu videa na 100% roditeljskog elementa */
+    max-width: 800px; /* Ograničite maksimalnu širinu videa, prilagodite je vašim potrebama */
+    height: auto; /* Automatski prilagodite visinu kako biste očuvali proporcije */
 }
 </style>
