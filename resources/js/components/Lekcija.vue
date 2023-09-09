@@ -10,6 +10,107 @@
             >
                 Dodaj lekciju
             </button>
+            <button
+                class="btn btn-primary ms-3"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasRight"
+                aria-controls="offcanvasRight"
+            >
+                Opcije
+            </button>
+
+            <div
+                class="offcanvas offcanvas-end"
+                tabindex="-1"
+                id="offcanvasRight"
+                aria-labelledby="offcanvasRightLabel"
+            >
+                <div class="offcanvas-header">
+                    <h5 id="offcanvasRightLabel">Dodaj u lekciju..</h5>
+                    <button
+                        type="button"
+                        class="btn-close text-reset"
+                        data-bs-dismiss="offcanvas"
+                        aria-label="Close"
+                    ></button>
+                </div>
+                <div class="offcanvas-body">
+                    <form>
+                        <div class="mb-3">
+                            <select
+                                class="form-select"
+                                aria-label="Default select example"
+                                v-model="details.lesson_id"
+                                required
+                            >
+                                <option v-for="lesson in lessons">
+                                    {{ lesson.naslov }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label"
+                                >Tema lekcije</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="exampleInputEmail1"
+                                aria-describedby="emailHelp"
+                                v-model="details.tema"
+                                required
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <label
+                                for="exampleInputPassword1"
+                                class="form-label"
+                                >Sadrzaj lekcije</label
+                            >
+                            <textarea
+                                type="text"
+                                class="form-control"
+                                id="exampleInputPassword1"
+                                v-model="details.lekcija"
+                                required
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFileSm" class="form-label"
+                                >Dodaj sliku
+                                <span class="text-warning fw-bold"
+                                    >*</span
+                                ></label
+                            >
+                            <input
+                                class="form-control form-control-sm"
+                                id="formFileSm"
+                                type="file"
+
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFileSm" class="form-label"
+                                >Dodaj video
+                                <span class="text-warning fw-bold"
+                                    >*</span
+                                ></label
+                            >
+                            <input
+                                class="form-control form-control-sm"
+                                id="formFileSm"
+                                type="file"
+                            />
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">
+                            Submit
+                        </button>
+                        <p class="fst-italic"><span class="text-warning fw-bold">*</span> - nije obavezno</p>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
     <div
@@ -136,91 +237,98 @@
                                     Uredi
                                 </button>
                                 <div
-                                class="modal fade"
-                                :id="'updateModal' + lesson.id"
-                                tabindex="-1"
-                                :aria-labelledby="
-                                    'exampleModalLabel' + lesson.id
-                                "
-                                aria-hidden="true"
-                            >
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5
-                                                class="modal-title"
-                                                :id="'modalUpdate' + lesson.id"
-                                            >
-                                                Uredi lekciju
-                                            </h5>
-                                            <button
-                                                type="button"
-                                                class="btn-close"
-                                                data-bs-dismiss="modal"
-                                                aria-label="Close"
-                                            ></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form
-                                                @submit.prevent="
-                                                    urediLekciju(lesson.id)
-                                                "
-                                                method="POST"
-                                            >
-                                                <input
-                                                    type="hidden"
-                                                    v-model="this.POST"
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name=""
-                                                    v-model="this.csrfToken"
-                                                />
-                                                <div class="mb-3">
-                                                    <label
-                                                        for="recipient-name"
-                                                        class="col-form-label"
-                                                        >Naslov:</label
-                                                    >
-                                                    <input
-                                                        type="text"
-                                                        class="form-control"
-                                                        id="recipient-name"
-                                                        v-model="lekcija.naslov"
-                                                    />
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label
-                                                        for="message-text"
-                                                        class="col-form-label"
-                                                        >Opis:</label
-                                                    >
-                                                    <textarea
-                                                        class="form-control"
-                                                        id="message-text"
-                                                        v-model="lekcija.opis"
-                                                    ></textarea>
-                                                </div>
-                                                <button
-                                                    type="submit"
-                                                    class="btn btn-primary w-100"
+                                    class="modal fade"
+                                    :id="'updateModal' + lesson.id"
+                                    tabindex="-1"
+                                    :aria-labelledby="
+                                        'exampleModalLabel' + lesson.id
+                                    "
+                                    aria-hidden="true"
+                                >
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5
+                                                    class="modal-title"
+                                                    :id="
+                                                        'modalUpdate' +
+                                                        lesson.id
+                                                    "
                                                 >
                                                     Uredi lekciju
+                                                </h5>
+                                                <button
+                                                    type="button"
+                                                    class="btn-close"
+                                                    data-bs-dismiss="modal"
+                                                    aria-label="Close"
+                                                ></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form
+                                                    @submit.prevent="
+                                                        urediLekciju(lesson.id)
+                                                    "
+                                                    method="POST"
+                                                >
+                                                    <input
+                                                        type="hidden"
+                                                        v-model="this.POST"
+                                                    />
+                                                    <input
+                                                        type="hidden"
+                                                        name=""
+                                                        v-model="this.csrfToken"
+                                                    />
+                                                    <div class="mb-3">
+                                                        <label
+                                                            for="recipient-name"
+                                                            class="col-form-label"
+                                                            >Naslov:</label
+                                                        >
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            id="recipient-name"
+                                                            v-model="
+                                                                lekcija.naslov
+                                                            "
+                                                        />
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label
+                                                            for="message-text"
+                                                            class="col-form-label"
+                                                            >Opis:</label
+                                                        >
+                                                        <textarea
+                                                            class="form-control"
+                                                            id="message-text"
+                                                            v-model="
+                                                                lekcija.opis
+                                                            "
+                                                        ></textarea>
+                                                    </div>
+                                                    <button
+                                                        type="submit"
+                                                        class="btn btn-primary w-100"
+                                                    >
+                                                        Uredi lekciju
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button
+                                                    type="button w-100"
+                                                    class="btn btn-secondary"
+                                                    data-bs-dismiss="modal"
+                                                >
+                                                    Zatvori
                                                 </button>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button
-                                                type="button w-100"
-                                                class="btn btn-secondary"
-                                                data-bs-dismiss="modal"
-                                            >
-                                                Zatvori
-                                            </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                             </td>
                             <td>
                                 <button
@@ -230,15 +338,12 @@
                                     Izbrisi
                                 </button>
                             </td>
-
                         </tr>
-
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
 </template>
 
 <script>
@@ -259,6 +364,14 @@ export default {
             message: "",
             lessons: [],
             currentLessonId: null,
+
+            details: {
+                lesson_id: "",
+                tema: "",
+                lekcija: "",
+                image: "",
+                video: "",
+            },
         };
     },
     created() {
