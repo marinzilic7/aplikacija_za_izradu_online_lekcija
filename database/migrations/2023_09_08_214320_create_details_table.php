@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('lesson_id');
             $table->string('tema');
-            $table->string('lekcija');
+            $table->text('lekcija');
             $table->string('image')->nullable();
             $table->string('video')->nullable();
             $table->timestamps();

@@ -35,8 +35,12 @@
                             aria-expanded="false"
                             aria-controls="flush-collapseOne"
                         >
-                            <span class="text-primary fw-bold">Lekcija</span> :
-                            {{ lekcija.naslov }}
+                            <p class="fw-bold">
+                                <span class="text-primary fw-bold"
+                                    >Lekcija</span
+                                >
+                                : {{ lekcija.naslov }}
+                            </p>
                         </button>
                     </h2>
                     <div
@@ -72,6 +76,25 @@
                             <div class="mt-3">
                                 <h4>Sadrzaj :</h4>
                                 <p>{{ lekcija.detail[indexx].lekcija }}</p>
+                            </div>
+                            <div class="mt-3">
+                                <video
+                                    class="card-img-top custom-video"
+                                    controls
+                                    v-if="lekcija.detail[indexx].video"
+                                >
+                                    <source
+                                        :src="
+                                            '/videos/' +
+                                            lekcija.detail[indexx].video
+                                        "
+                                    />
+                                    Your browser does not support the video tag.
+                                </video>
+                                <div  v-if="lekcija.detail[indexx].image">
+
+                                    <img :src="getImageUrl(lekcija.detail[indexx].image)" alt="" />
+                                </div>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <button
@@ -152,8 +175,8 @@ export default {
 
         nextLesson(indexx) {
             this.lekcije.forEach((element, index) => {
-
-                if (this.indexx < element.detail.length-1)  {
+                console.log("DETAIL ->", element.detail);
+                if (this.indexx < element.detail.length - 1) {
                     this.indexx++;
                 }
             });
@@ -161,11 +184,14 @@ export default {
 
         prevLesson(indexx) {
             this.lekcije.forEach((element, index) => {
-
                 if (this.indexx > 0) {
                     this.indexx--;
                 }
             });
+        },
+
+        getImageUrl(imageName) {
+            return `/images/${imageName}`;
         },
     },
 };
@@ -181,5 +207,12 @@ export default {
 .spinner {
     position: relative;
     top: 20rem;
+}
+
+.custom-video {
+  margin:auto !important;
+  width: 100%; /* Postavite širinu videa na 100% roditeljskog elementa */
+  max-width: 800px; /* Ograničite maksimalnu širinu videa, prilagodite je vašim potrebama */
+  height: auto; /* Automatski prilagodite visinu kako biste očuvali proporcije */
 }
 </style>
