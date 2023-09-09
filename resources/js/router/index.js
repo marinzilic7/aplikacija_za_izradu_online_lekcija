@@ -4,6 +4,7 @@ import RegisterView from '../views/RegisterView.vue'
 import LoginView from '../views/LoginView.vue'
 import KategorijaView from '../views/KategorijaView.vue'
 import LekcijaView from '../views/LekcijaView.vue'
+import SingleLessonView from '../views/SingleLessonView.vue'
 
 
 
@@ -37,6 +38,14 @@ const router = createRouter({
             name: 'lekcija',
             component: LekcijaView
         },
+        {
+            path: '/single/:id',
+            name: 'single',
+            component: SingleLessonView
+        },
+
+
+
 
 
 

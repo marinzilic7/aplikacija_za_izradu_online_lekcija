@@ -75,4 +75,10 @@ class LessonController extends Controller
 
         return response()->json($lekcija);
     }
+
+    public function dohvatiLekciju($id)
+    {
+        $lesson = Lesson::with('user', 'category','detail')->find($id);
+        return response()->json($lesson);
+    }
 }

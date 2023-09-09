@@ -32,7 +32,7 @@ Route::get('/getLesson',[LessonController::class,'getLesson']);
 Route::post('/deleteLesson/{id}',[LessonController::class,'deleteLesson']);
 Route::post('/urediLekciju/{id}',[LessonController::class,'urediLekciju']);
 Route::get('/singleLesson/{id}',[LessonController::class,'getLekcija']);
-
+Route::get('/dohvatiLekciju/{id}',[LessonController::class,'dohvatiLekciju']);
 /* Details */
 
 Route::post('/addDetails',[DetailController::class,'addDetails']);

@@ -1,5 +1,14 @@
 <template>
     <div class="container d-flex justify-content-center">
+        <div
+            class="spinner-border text-secondary mt-5 spinner"
+            role="status"
+            v-if="loading"
+        >
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    <div class="container d-flex justify-content-center">
         <div class="mt-5">
             <button
                 type="button"
@@ -7,6 +16,7 @@
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModal"
                 data-bs-whatever="@getbootstrap"
+                v-if="!loading"
             >
                 Dodaj kategoriju
             </button>
@@ -77,29 +87,27 @@
         </div>
     </div>
 
+    <!-- LISTA KATEGORIJA -->
 
-        <!-- LISTA KATEGORIJA -->
-
-    <div class="container mt-5">
+    <div class="container mt-5"  v-if="!loading">
         <div>
             <table class="table table-secondary shadow-lg">
-            <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Ime</th>
-                    <th scope="col">Datum</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="category in categories" :key="category.id">
-                    <th scope="row">{{ category.id }}</th>
-                    <td>{{ category.ime}}</td>
-                    <td>{{ category.created_at }}</td>
-                </tr>
-            </tbody>
-        </table>
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Ime</th>
+                        <th scope="col">Datum</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="category in categories" :key="category.id">
+                        <th scope="row">{{ category.id }}</th>
+                        <td>{{ category.ime }}</td>
+                        <td>{{ category.created_at }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-
     </div>
 </template>
 
@@ -117,6 +125,7 @@ export default {
             errors: {},
             message: "",
             categories: [],
+            loading: true,
         };
     },
     mounted() {
@@ -175,10 +184,20 @@ export default {
                 })
                 .catch((error) => {
                     console.log(error);
+                })
+                .finally(() => {
+                    this.loading = false;
                 });
         },
     },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+
+.spinner {
+    position: relative;
+    top: 20rem;
+}
+
+</style>

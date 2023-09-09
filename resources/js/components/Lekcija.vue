@@ -1,5 +1,14 @@
 <template>
     <div class="container d-flex justify-content-center">
+        <div
+            class="spinner-border text-secondary mt-5 spinner"
+            role="status"
+            v-if="loading"
+        >
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    <div class="container d-flex justify-content-center">
         <div class="mt-5">
             <button
                 type="button"
@@ -7,6 +16,7 @@
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModal"
                 data-bs-whatever="@getbootstrap"
+                v-if="!loading"
             >
                 Dodaj lekciju
             </button>
@@ -16,6 +26,7 @@
                 data-bs-toggle="offcanvas"
                 data-bs-target="#offcanvasRight"
                 aria-controls="offcanvasRight"
+                v-if="!loading"
             >
                 Opcije
             </button>
@@ -25,6 +36,7 @@
                 tabindex="-1"
                 id="offcanvasRight"
                 aria-labelledby="offcanvasRightLabel"
+
             >
                 <div class="offcanvas-header">
                     <h5 id="offcanvasRightLabel">Dodaj u lekciju..</h5>
@@ -211,7 +223,7 @@
 
     <!-- LISTA LEKCIJA -->
 
-    <div class="container">
+    <div class="container" v-if="!loading">
         <div class="container mt-5">
             <div>
                 <table class="table table-secondary shadow-lg">
@@ -382,6 +394,8 @@ export default {
                 image: "",
                 video: "",
             },
+            loading: true,
+
         };
     },
     created() {
@@ -465,6 +479,9 @@ export default {
                 })
                 .catch((error) => {
                     console.log(error);
+                })
+                .finally(() => {
+                    this.loading = false;
                 });
         },
 
@@ -551,8 +568,15 @@ export default {
                     console.log(error);
                 });
         },
+
+
     },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.spinner {
+    position: relative;
+    top: 20rem;
+}
+</style>
