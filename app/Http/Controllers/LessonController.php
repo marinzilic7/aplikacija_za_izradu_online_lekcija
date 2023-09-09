@@ -39,7 +39,7 @@ class LessonController extends Controller
 
     public function getLesson()
     {
-        $lekcije = Lesson::with('user','category')->get();
+        $lekcije = Lesson::with('user','category','detail')->get();
 
         return response()->json($lekcije);
     }
@@ -71,7 +71,7 @@ class LessonController extends Controller
     }
 
     public function getLekcija($id){
-        $lekcija = Lesson::with('user', 'category')->find($id);
+        $lekcija = Lesson::with('user', 'category',)->find($id);
 
         return response()->json($lekcija);
     }

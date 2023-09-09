@@ -62,13 +62,31 @@
                                     {{ lekcija.opis }}
                                 </p>
                             </div>
+                            <hr />
+
+                            <div>
+                                <h3>Tema : {{ lekcija.detail[index].tema }}</h3>
+                            </div>
+                            <div class="mt-3">
+                                <h4>Sadrzaj :</h4>
+                                <p>{{ lekcija.detail[index].lekcija }}</p>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <button class="btn btn-danger btn-sm">
+                                    Vrati
+                                </button>
+                                <button
+                                    class="btn btn-sm btn-success"
+                                    @click="nextLesson()"
+                                >
+                                    Sljedece
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
     </div>
 </template>
 
@@ -82,6 +100,8 @@ export default {
         return {
             lekcije: [],
             loading: true,
+            index: 0,
+            tema: [],
         };
     },
 
@@ -123,6 +143,14 @@ export default {
                 .finally(() => {
                     this.loading = false; // Postavite loading na false nakon što se podaci učitaju
                 });
+        },
+
+        nextLesson() {
+
+            console.log("duzina",this.lekcije.detail.length)
+            if (this.index < this.lekcije.detail.length - 1) {
+                this.index++;
+            }
         },
     },
 };

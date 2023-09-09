@@ -11,5 +11,10 @@ class Detail extends Model
         'lesson_id', 'tema', 'lekcija', 'image','video'
     ];
 
+    public function lesson()
+    {
+        return $this->belongsTo(Lesson::class,'lesson_id');
+    }
+
     use HasFactory;
 }
