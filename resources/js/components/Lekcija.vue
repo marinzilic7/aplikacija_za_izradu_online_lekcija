@@ -36,7 +36,9 @@
                     ></button>
                 </div>
                 <div class="offcanvas-body">
-                    <form>
+                    <form @submit.prevent="addDetails()" method="POST">
+                        <input type="hidden" v-model="this.POST" />
+                        <input type="hidden" name="" v-model="this.csrfToken" />
                         <div class="mb-3">
                             <select
                                 class="form-select"
@@ -44,7 +46,11 @@
                                 v-model="details.lesson_id"
                                 required
                             >
-                                <option v-for="lesson in lessons">
+                                <option
+                                    v-for="lesson in lessons"
+                                    :value="lesson.id"
+                                    :key="lesson.id"
+                                >
                                     {{ lesson.naslov }}
                                 </option>
                             </select>
@@ -87,7 +93,7 @@
                                 class="form-control form-control-sm"
                                 id="formFileSm"
                                 type="file"
-
+                                @change="imageChange"
                             />
                         </div>
                         <div class="mb-3">
@@ -101,13 +107,17 @@
                                 class="form-control form-control-sm"
                                 id="formFileSm"
                                 type="file"
+                                @change="videoChange"
                             />
                         </div>
 
                         <button type="submit" class="btn btn-primary w-100">
                             Submit
                         </button>
-                        <p class="fst-italic"><span class="text-warning fw-bold">*</span> - nije obavezno</p>
+                        <p class="fst-italic">
+                            <span class="text-warning fw-bold">*</span> - nije
+                            obavezno
+                        </p>
                     </form>
                 </div>
             </div>
@@ -501,6 +511,41 @@ export default {
                     }
 
                     $("#updateModal" + this.currentLessonId).modal("hide");
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+        imageChange(event) {
+            this.details.image = event.target.files[0];
+        },
+        videoChange(event) {
+            this.details.video = event.target.files[0];
+        },
+
+        addDetails() {
+            let detailsForm = new FormData();
+            detailsForm.append("lesson_id", this.details.lesson_id);
+            detailsForm.append("tema", this.details.tema);
+            detailsForm.append("lekcija", this.details.lekcija);
+            detailsForm.append("image", this.details.image);
+            detailsForm.append("video", this.details.video);
+
+            axios.defaults.headers.common["X-CSRF-TOKEN"] = this.csrfToken;
+
+            axios
+                .post("/addDetails", detailsForm)
+                .then((response) => {
+                    this.message = response.data.message;
+                    this.noti = true;
+
+                    this.details = {
+                        lesson_id: "",
+                        tema: "",
+                        lekcija: "",
+                        image: null,
+                        video: null,
+                    };
                 })
                 .catch((error) => {
                     console.log(error);

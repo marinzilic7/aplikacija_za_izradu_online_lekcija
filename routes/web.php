@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DetailController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -32,7 +33,10 @@ Route::post('/deleteLesson/{id}',[LessonController::class,'deleteLesson']);
 Route::post('/urediLekciju/{id}',[LessonController::class,'urediLekciju']);
 Route::get('/singleLesson/{id}',[LessonController::class,'getLekcija']);
 
-/*  */
+/* Details */
+
+Route::post('/addDetails',[DetailController::class,'addDetails']);
+
 
 Route::get('/{any}', function () {
     return view('welcome');

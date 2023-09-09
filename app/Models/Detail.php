@@ -7,5 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Detail extends Model
 {
+    protected $fillable = [
+        'lesson_id', 'tema', 'lekcija', 'image','video'
+    ];
+
     use HasFactory;
 }
